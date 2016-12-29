@@ -14,6 +14,9 @@ namespace ConsoleApplication
 
             var totp = new Totp(Key, 30, 8);
             Console.WriteLine(string.Concat("Seu codigo atual: ", totp.getCodeString()));
+
+            Console.WriteLine("Pressione qualquer tecla para encerrar.");
+            Console.ReadKey();
         }
     }
 }
