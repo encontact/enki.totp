@@ -11,6 +11,8 @@
   },
   "testRunner": "xunit",
   "frameworks": {
+    "net452": {},
+    "net461": {},
     "netcoreapp1.0": {
       "dependencies": {
         "Microsoft.NETCore.App": {
