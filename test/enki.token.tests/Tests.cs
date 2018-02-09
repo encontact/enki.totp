@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using enki.totp;
 
-namespace enki.top.tests
+namespace enki.token.tests
 {
     public class TotpTests
     {
