@@ -13,8 +13,8 @@ namespace enki.totp {
             hmac = new HMACSHA1 (key);
         }
 
-        public Totp (string base32string, Int32 t1, int digits) : this (base32string) {
-            this.t1 = t1;
+        public Totp (string base32string, int timeoutSeconds, int digits) : this (base32string) {
+            t1 = timeoutSeconds;
             this.digits = digits;
         }
 

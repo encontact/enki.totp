@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using enki.totp;
+using System;
 
 namespace enki.token.tests
 {
@@ -50,6 +51,29 @@ namespace enki.token.tests
             Assert.Equal("005924", dut.getCodeString(1234567890));
             Assert.Equal("279037", dut.getCodeString(2000000000));
             Assert.Equal("353130", dut.getCodeString(20000000000));
+        }
+
+        [Fact]
+        public void DeveGerarEValidarTokenComDataDeExpiracao()
+        {
+            var manager = new TokenManager("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ");
+            var hash = manager.GetHashWithExpireOn(DateTime.Now.AddMinutes(1));
+
+            Assert.True(manager.IsValidToken(hash));
+        }
+
+        [Fact]
+        public void DeveGerarERecuperarTimestamp()
+        {
+            var date = DateTime.UtcNow;
+            var timestamp = TokenManager.GetGMTUnixEpochNow(date);
+            Assert.Equal(timestamp, TokenManager.GetGMTUnixEpochNow(date));
+            var recoveredDate = TokenManager.FromUnixEpochMilliseconds(timestamp);
+            Assert.Equal(date.Year, recoveredDate.Year);
+            Assert.Equal(date.Month, recoveredDate.Month);
+            Assert.Equal(date.Day, recoveredDate.Day);
+            Assert.Equal(date.Hour, recoveredDate.Hour);
+            Assert.Equal(date.Minute, recoveredDate.Minute);
         }
     }
 }
