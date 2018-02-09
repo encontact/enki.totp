@@ -11,7 +11,6 @@ namespace ConsoleApplication
         public static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
-            //.SetBasePath (Directory.GetCurrentDirectory ())
             .AddJsonFile("config.json", optional: true)
             .AddEnvironmentVariables()
             .AddCommandLine(args);
@@ -20,8 +19,6 @@ namespace ConsoleApplication
             var timeInSeconds = Convert.ToInt32(Configuration["TimeInSeconds"]);
             var digits = Convert.ToInt32(Configuration["Digits"]);
             var totp = new Totp(Configuration["Key"], timeInSeconds, digits);
-
-            //var cancellationToken = new CancellationToken();
 
             // TODO: Loop infinito, resolver pro cara não ter q matar o programa.
             var subtractTime = timeInSeconds;
