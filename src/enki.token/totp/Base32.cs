@@ -1,10 +1,8 @@
 using System;
 using System.Text;
 
-namespace enki.totp
-{
-    internal sealed class Base32
-    {
+namespace enki.totp {
+    internal sealed class Base32 {
         /// <summary>
         ///     Size of the regular byte in bits
         /// </summary>
@@ -25,21 +23,18 @@ namespace enki.totp
         /// </summary>
         /// <param name="bytes">An array of bytes to convert to Base32 format</param>
         /// <returns>Returns a string representing byte array</returns>
-        internal static string ToBase32String(byte[] bytes)
-        {
+        internal static string ToBase32String (byte[] bytes) {
             // Check if byte array is null
-            if (bytes == null)
-            {
+            if (bytes == null) {
                 return null;
             }
-                // Check if empty
-            if (bytes.Length == 0)
-            {
+            // Check if empty
+            if (bytes.Length == 0) {
                 return string.Empty;
             }
 
             // Prepare container for the final value
-            var builder = new StringBuilder(bytes.Length*InByteSize/OutByteSize);
+            var builder = new StringBuilder (bytes.Length * InByteSize / OutByteSize);
 
             // Position in the input buffer
             var bytesPosition = 0;
@@ -55,10 +50,9 @@ namespace enki.totp
             var outputBase32BytePosition = 0;
 
             // Iterate through input buffer until we reach past the end of it
-            while (bytesPosition < bytes.Length)
-            {
+            while (bytesPosition < bytes.Length) {
                 // Calculate the number of bits we can extract out of current input byte to fill missing bits in the output byte
-                var bitsAvailableInByte = Math.Min(InByteSize - bytesSubPosition, OutByteSize - outputBase32BytePosition);
+                var bitsAvailableInByte = Math.Min (InByteSize - bytesSubPosition, OutByteSize - outputBase32BytePosition);
 
                 // Make space in the output byte
                 outputBase32Byte <<= bitsAvailableInByte;
@@ -71,8 +65,7 @@ namespace enki.totp
                 bytesSubPosition += bitsAvailableInByte;
 
                 // Check overflow
-                if (bytesSubPosition >= InByteSize)
-                {
+                if (bytesSubPosition >= InByteSize) {
                     // Move to the next byte
                     bytesPosition++;
                     bytesSubPosition = 0;
@@ -82,13 +75,12 @@ namespace enki.totp
                 outputBase32BytePosition += bitsAvailableInByte;
 
                 // Check overflow or end of input array
-                if (outputBase32BytePosition >= OutByteSize)
-                {
+                if (outputBase32BytePosition >= OutByteSize) {
                     // Drop the overflow bits
                     outputBase32Byte &= 0x1F; // 0x1F = 00011111 in binary
 
                     // Add current Base32 byte and convert it to character
-                    builder.Append(Base32Alphabet[outputBase32Byte]);
+                    builder.Append (Base32Alphabet[outputBase32Byte]);
 
                     // Move to the next byte
                     outputBase32BytePosition = 0;
@@ -96,8 +88,7 @@ namespace enki.totp
             }
 
             // Check if we have a remainder
-            if (outputBase32BytePosition > 0)
-            {
+            if (outputBase32BytePosition > 0) {
                 // Move to the right bits
                 outputBase32Byte <<= (OutByteSize - outputBase32BytePosition);
 
@@ -105,10 +96,10 @@ namespace enki.totp
                 outputBase32Byte &= 0x1F; // 0x1F = 00011111 in binary
 
                 // Add current Base32 byte and convert it to character
-                builder.Append(Base32Alphabet[outputBase32Byte]);
+                builder.Append (Base32Alphabet[outputBase32Byte]);
             }
 
-            return builder.ToString();
+            return builder.ToString ();
         }
 
         /// <summary>
@@ -116,29 +107,25 @@ namespace enki.totp
         /// </summary>
         /// <param name="base32String">Base32 string to convert</param>
         /// <returns>Returns a byte array converted from the string</returns>
-        internal static byte[] FromBase32String(string base32String)
-        {
+        internal static byte[] FromBase32String (string base32String) {
             // Check if string is null
-            if (base32String == null)
-            {
+            if (base32String == null) {
                 return null;
             }
-                // Check if empty
-            if (base32String == string.Empty)
-            {
+            // Check if empty
+            if (base32String == string.Empty) {
                 return new byte[0];
             }
 
             // Convert to upper-case
-            var base32StringUpperCase = base32String.ToUpperInvariant();
+            var base32StringUpperCase = base32String.ToUpperInvariant ();
 
             // Prepare output byte array
-            var outputBytes = new byte[base32StringUpperCase.Length*OutByteSize/InByteSize];
+            var outputBytes = new byte[base32StringUpperCase.Length * OutByteSize / InByteSize];
 
             // Check the size
-            if (outputBytes.Length == 0)
-            {
-                throw new ArgumentException("Specified string is not valid Base32 format because it doesn't have enough data to construct a complete byte array");
+            if (outputBytes.Length == 0) {
+                throw new ArgumentException ("Specified string is not valid Base32 format because it doesn't have enough data to construct a complete byte array");
             }
 
             // Position in the string
@@ -155,22 +142,20 @@ namespace enki.totp
 
             // Normally we would iterate on the input array but in this case we actually iterate on the output array
             // We do it because output array doesn't have overflow bits, while input does and it will cause output array overflow if we don't stop in time
-            while (outputBytePosition < outputBytes.Length)
-            {
+            while (outputBytePosition < outputBytes.Length) {
                 // Look up current character in the dictionary to convert it to byte
-                var currentBase32Byte = Base32Alphabet.IndexOf(base32StringUpperCase[base32Position]);
+                var currentBase32Byte = Base32Alphabet.IndexOf (base32StringUpperCase[base32Position]);
 
                 // Check if found
-                if (currentBase32Byte < 0)
-                {
-                    throw new ArgumentException(
-                        string.Format(
+                if (currentBase32Byte < 0) {
+                    throw new ArgumentException (
+                        string.Format (
                             "Specified string is not valid Base32 format because character \"{0}\" does not exist in Base32 alphabet",
                             base32String[base32Position]));
                 }
 
                 // Calculate the number of bits we can extract out of current input character to fill missing bits in the output byte
-                var bitsAvailableInByte = Math.Min(OutByteSize - base32SubPosition, InByteSize - outputByteSubPosition);
+                var bitsAvailableInByte = Math.Min (OutByteSize - base32SubPosition, InByteSize - outputByteSubPosition);
 
                 // Make space in the output byte
                 outputBytes[outputBytePosition] <<= bitsAvailableInByte;
@@ -183,8 +168,7 @@ namespace enki.totp
                 outputByteSubPosition += bitsAvailableInByte;
 
                 // Check overflow
-                if (outputByteSubPosition >= InByteSize)
-                {
+                if (outputByteSubPosition >= InByteSize) {
                     // Move to the next byte
                     outputBytePosition++;
                     outputByteSubPosition = 0;
@@ -194,8 +178,7 @@ namespace enki.totp
                 base32SubPosition += bitsAvailableInByte;
 
                 // Check overflow or end of input array
-                if (base32SubPosition >= OutByteSize)
-                {
+                if (base32SubPosition >= OutByteSize) {
                     // Move to the next character
                     base32Position++;
                     base32SubPosition = 0;
