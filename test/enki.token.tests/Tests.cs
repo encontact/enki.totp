@@ -54,15 +54,14 @@ namespace enki.token.tests
         }
 
         // ESTA FALHANDO NA MAQUINA DE BUILD.
-        //[Fact]
-        //public void DeveGerarEValidarTokenComDataDeExpiracao()
-        //{
-        //    var manager = new TokenManager("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ");
-        //    var hash = manager.GetHashWithExpireOn(DateTime.Now.AddMinutes(1));
+        [Fact]
+        public void DeveGerarEValidarTokenComDataDeExpiracao()
+        {
+           var manager = new TokenManager("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ");
+           var hash = manager.GetHashWithExpireOn(DateTime.Now.AddMinutes(5));
 
-        //    Assert.True(manager.IsValidToken(hash));
-        //}
-
+           Assert.True(manager.IsValidToken(hash));
+        }
 
         [Fact]
         public void DeveGerarERecuperarTimestamp()
