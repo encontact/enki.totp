@@ -2,7 +2,7 @@
 
 ## Origin
 
-Project based on: https://github.com/mirthas/totp-net
+Project based on: <https://github.com/mirthas/totp-net>
 
 ## What is
 
@@ -27,3 +27,8 @@ string totpCode = totp.getCodeString();
 ## Used Librarys and Classes
 
 * [Base32](http://scottless.com/blog/archive/2014/02/15/base32-encoder-and-decoder-in-c.aspx)
+
+## Packing and Publish
+
+1. dotnet pack --output nupkgs /p:PackageVersion=1.0.1{version}
+2. nuget.exe push -Source {NuGet package source URL} -ApiKey key {your_package}.nupkg`
