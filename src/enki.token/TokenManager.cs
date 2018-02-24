@@ -30,19 +30,19 @@ namespace enki.token
         }
 
         /// <summary>
-        /// Recupera um token tempor·rio de acesso.
+        /// Recupera um token tempor√°rio de acesso.
         /// </summary>
-        /// <returns>Token formado por numeros conforme definido na configuraÁ„o.</returns>
+        /// <returns>Token formado por numeros conforme definido na configura√ß√£o.</returns>
         public string GetToken()
         {
             return _totp.getCodeString();
         }
 
         /// <summary>
-        /// Recupera um hash de acesso tempor·rio, valido atÈ a data de expiraÁ„o informada.
+        /// Recupera um hash de acesso tempor√°rio, valido at√© a data de expira√ß√£o informada.
         /// </summary>
-        /// <param name="expiresOn">Data de expiraÁ„o do token.</param>
-        /// <returns>Hash baseado em datas para validaÁ„o de acesso tempor·rio.</returns>
+        /// <param name="expiresOn">Data GMT/UTC de expir√ß√£o do token.</param>
+        /// <returns>Hash baseado em datas para valida√ß√£o de acesso tempor√°rio.</returns>
         public string GetHashWithExpireOn(DateTime expiresOn)
         {
             var tokenTimestamp = GetGMTUnixEpochNow();
@@ -68,7 +68,9 @@ namespace enki.token
             if (splitedToken.Length != 3) return false;
             var tokenCode = _totp.getCodeString(ulong.Parse(splitedToken[2]));
 
-            var isInTime = FromUnixEpochMilliseconds(ulong.Parse(splitedToken[0])) < DateTime.UtcNow;
+            var nowEpoch = GetGMTUnixEpochNow();
+            var limitEpoch = ulong.Parse(splitedToken[0]);
+            var isInTime = nowEpoch < limitEpoch;
             var isSameToken = tokenCode == splitedToken[1];
             if (isInTime && isSameToken) return true;
             return false;
@@ -87,7 +89,7 @@ namespace enki.token
         /// <summary>
         /// Converte a data atual (UTC/GMT) para UNIX Timestamp
         /// </summary>
-        /// <returns>Valor numÈrio representando os segundos transcorridos desde 01/01/1970 atÈ a data informada.</returns>
+        /// <returns>Valor num√©rico representando os segundos transcorridos desde 01/01/1970 at√© a data informada.</returns>
         public static ulong GetGMTUnixEpochNow(DateTime? date = null)
         {
             var timestamp = (ulong)Convert.ToInt64(((date ?? DateTime.UtcNow) - _utcEpoch).TotalSeconds);

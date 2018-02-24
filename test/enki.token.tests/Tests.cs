@@ -58,8 +58,7 @@ namespace enki.token.tests
         public void DeveGerarEValidarTokenComDataDeExpiracao()
         {
            var manager = new TokenManager("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ");
-           var hash = manager.GetHashWithExpireOn(DateTime.Now.AddMinutes(5));
-
+           var hash = manager.GetHashWithExpireOn(DateTime.UtcNow.AddMinutes(5));
            Assert.True(manager.IsValidToken(hash));
         }
 
