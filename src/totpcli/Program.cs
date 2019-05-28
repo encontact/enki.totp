@@ -1,6 +1,7 @@
-using System;
 using enki.totp;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Threading.Tasks;
 
 namespace ConsoleApplication
 {
@@ -21,12 +22,13 @@ namespace ConsoleApplication
             var totp = new Totp(Configuration["Key"], timeInSeconds, digits);
 
             // TODO: Loop infinito, resolver pro cara não ter q matar o programa.
-            var subtractTime = timeInSeconds;
+            //var subtractTime = timeInSeconds;
             var exit = false;
             while (!exit)
             {
                 Console.Clear();
                 Console.WriteLine(string.Concat("Seu codigo atual: ", totp.getCodeString()));
+                Console.WriteLine($"Faltam {totp.RemainingSeconds()} segundos para trocar o número.");
 
                 // Console.WriteLine(string.Format("\r\n Faltam {0} segundos para trocar o número.", subtractTime));
                 // subtractTime--;
@@ -35,7 +37,7 @@ namespace ConsoleApplication
                 // if(Console.ReadKey() == ConsoleKey.Escape) exit = true;
                 Console.Write("\r\nFeche a janela para sair... ");
 
-                System.Threading.Tasks.Task.Delay(1000).Wait();
+                Task.Delay(1000).Wait();
             }
         }
     }
