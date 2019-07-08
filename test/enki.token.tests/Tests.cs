@@ -1,6 +1,6 @@
-﻿using Xunit;
-using enki.totp;
+﻿using enki.totp;
 using System;
+using Xunit;
 
 namespace enki.token.tests
 {
@@ -57,9 +57,9 @@ namespace enki.token.tests
         [Fact]
         public void DeveGerarEValidarTokenComDataDeExpiracao()
         {
-           var manager = new TokenManager("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ");
-           var hash = manager.GetHashWithExpireOn(DateTime.UtcNow.AddMinutes(5));
-           Assert.True(manager.IsValidToken(hash));
+            var manager = new TokenManager("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ");
+            var hash = manager.GetHashWithExpireOn(DateTime.UtcNow.AddMinutes(5));
+            Assert.True(manager.IsValidToken(hash));
         }
 
         [Fact]
@@ -74,6 +74,17 @@ namespace enki.token.tests
             Assert.Equal(date.Day, recoveredDate.Day);
             Assert.Equal(date.Hour, recoveredDate.Hour);
             Assert.Equal(date.Minute, recoveredDate.Minute);
+        }
+
+        [Fact]
+        public void DeveValidarTokenComFormatoInvalido()
+        {
+            var token = "s_b_hotl.gif";
+            var manager = new TokenManager("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ");
+
+            var result = manager.IsValidToken(token);
+
+            Assert.False(result);
         }
     }
 }
