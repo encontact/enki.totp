@@ -13,6 +13,8 @@ TestResults
 *.user
 *.sln.docstates
 *.db
+tools/
+artifacts/
 
 # Build results
 [Dd]ebug/
