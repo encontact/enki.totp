@@ -63,7 +63,17 @@ namespace enki.token
                 return (_totp.getCodeString() == token);
             }
 
-            var decodedToken = Encoding.UTF8.GetString(Convert.FromBase64String(token));
+            byte[] tokenInBytes;
+            try
+            {
+                tokenInBytes = Convert.FromBase64String(token);
+            }
+            catch(FormatException)
+            {
+                return false;
+            }
+
+            var decodedToken = Encoding.UTF8.GetString(tokenInBytes);
             var splitedToken = decodedToken.Split('.');
             if (splitedToken.Length != 3) return false;
             var tokenCode = _totp.getCodeString(ulong.Parse(splitedToken[2]));
