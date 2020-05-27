@@ -13,12 +13,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="config/config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\enki.token\enki.token.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="GtkSharp" Version="3.22.25.*" />
     <PackageReference Include="TextCopy" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
   </ItemGroup>
 
 </Project>

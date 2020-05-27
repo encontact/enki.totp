@@ -1,5 +1,6 @@
 using System;
 using totp.ui;
+using Microsoft.Extensions.Configuration;
 using Gtk;
 
 namespace totp
@@ -14,7 +15,13 @@ namespace totp
             var app = new Application("org.totp.totp", GLib.ApplicationFlags.None);
             app.Register(GLib.Cancellable.Current);
 
-            var win = new MainWindow();
+            var builder = new ConfigurationBuilder()
+            .AddJsonFile("config/config.json", optional: false)
+            .AddEnvironmentVariables()
+            .AddCommandLine(args);
+            var configuration = builder.Build();
+
+            var win = new MainWindow(configuration);
             app.AddWindow(win);
 
             win.Show();

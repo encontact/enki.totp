@@ -3,6 +3,7 @@ using System.Timers;
 using Gtk;
 using UI = Gtk.Builder.ObjectAttribute;
 using enki.totp;
+using Microsoft.Extensions.Configuration;
 
 namespace totp.ui
 {
@@ -14,17 +15,18 @@ namespace totp.ui
         [UI] private Label _label2 = null;
         [UI] private Button _button1 = null;
 
-        public MainWindow() : this(new Builder("MainWindow.glade")) { }
+        public MainWindow(IConfigurationRoot config) : this(config, new Builder("MainWindow.glade")) { }
 
-        private MainWindow(Builder builder) : base(builder.GetObject("MainWindow").Handle)
+        private MainWindow(IConfigurationRoot config, Builder builder) : base(builder.GetObject("MainWindow").Handle)
         {
             builder.Autoconnect(this);
             
             DeleteEvent += Window_DeleteEvent;
             _button1.Clicked += Button1_Clicked;
 
-            var timeInSeconds = 5;
-            var digits = 8;
+            var timeInSeconds = Convert.ToInt32(config["TimeInSeconds"]);
+            var digits = Convert.ToInt32(config["Digits"]);
+            var totpKey = config["Key"];
             token = new Totp("JZQSAZLONNUSA43PNVXXGIDUN5SG64ZAMNQXEYLTEBWXK2LUN4QGM33EMFZQ", timeInSeconds, digits);
 
             aTimer = new System.Timers.Timer(1000);
@@ -47,7 +49,8 @@ namespace totp.ui
             {
                 _label1.Text = "<big><b>" + token.getCodeString() + "</b></big>" ;
                 _label1.UseMarkup = true;
-                _label2.Text = $"Faltam {token.RemainingSeconds()} segundos para trocar o número.";
+                _label2.Text = $"Faltam <b>{token.RemainingSeconds()}</b> segundos para trocar o número.";
+                _label2.UseMarkup = true;
             }
             catch (Exception ex)
             {
