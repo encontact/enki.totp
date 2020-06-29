@@ -1,13 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "enki.token", "src\enki.token\enki.token.csproj", "{5713490D-66FD-4B6D-9906-D8DD761C9E76}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "totpcli", "src\totpcli\totpcli.csproj", "{599594BF-C46A-4BF2-8B77-28E1E5CA9C31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "totp.cli", "src\totp.cli\totp.cli.csproj", "{599594BF-C46A-4BF2-8B77-28E1E5CA9C31}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "enki.token.tests", "test\enki.token.tests\enki.token.tests.csproj", "{1E93E83A-2C00-4FB7-BD8A-25C7579027D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "totp.gtk", "src\totp.gtksharp\totp.gtk.csproj", "{03F8946D-58CF-4B11-A0B2-A2DE497E4488}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "totp.uiterm", "src\totp.uiterm\totp.uiterm.csproj", "{A3FE7058-8328-4359-8349-9855AE4D1988}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8AF1C939-EAD3-4AFC-92A1-7797BA42A464}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8F3088C3-82C7-4E12-B3DC-78AE477051B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +35,24 @@ Global
 		{1E93E83A-2C00-4FB7-BD8A-25C7579027D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E93E83A-2C00-4FB7-BD8A-25C7579027D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E93E83A-2C00-4FB7-BD8A-25C7579027D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03F8946D-58CF-4B11-A0B2-A2DE497E4488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03F8946D-58CF-4B11-A0B2-A2DE497E4488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03F8946D-58CF-4B11-A0B2-A2DE497E4488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03F8946D-58CF-4B11-A0B2-A2DE497E4488}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3FE7058-8328-4359-8349-9855AE4D1988}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FE7058-8328-4359-8349-9855AE4D1988}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FE7058-8328-4359-8349-9855AE4D1988}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FE7058-8328-4359-8349-9855AE4D1988}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5713490D-66FD-4B6D-9906-D8DD761C9E76} = {8AF1C939-EAD3-4AFC-92A1-7797BA42A464}
+		{599594BF-C46A-4BF2-8B77-28E1E5CA9C31} = {8AF1C939-EAD3-4AFC-92A1-7797BA42A464}
+		{1E93E83A-2C00-4FB7-BD8A-25C7579027D5} = {8F3088C3-82C7-4E12-B3DC-78AE477051B3}
+		{03F8946D-58CF-4B11-A0B2-A2DE497E4488} = {8AF1C939-EAD3-4AFC-92A1-7797BA42A464}
+		{A3FE7058-8328-4359-8349-9855AE4D1988} = {8AF1C939-EAD3-4AFC-92A1-7797BA42A464}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {344EF324-CFA9-40F5-84C4-9DA460BD7364}

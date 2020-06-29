@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="config/config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\enki.token\enki.token.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Terminal.Gui" Version="0.81.0" />
+    <PackageReference Include="TextCopy" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.0" />
+  </ItemGroup>
+
+</Project>

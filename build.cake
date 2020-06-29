@@ -39,11 +39,11 @@ Task ("PublishConsoleCliWindows")
 			CreateDirectory (publishDir);
 		 }
 		 
-		 var apiProject = "./src/totpcli/totpcli.csproj";
+		 var apiProject = "./src/totp.cli/totpcli.csproj";
 		 
 		 var settings = new DotNetCorePublishSettings
 		 {
-			 Framework = "netcoreapp2.1",
+			 Framework = "net5",
 			 Configuration = "Release",
 			 Runtime = "win-x64",
 			 SelfContained = true,
@@ -54,7 +54,7 @@ Task ("PublishConsoleCliWindows")
         Zip (publishDir, artifactsDirectory + "/" + File ($"cli-windows.zip"));
 });
 
-Task ("PublishConsoleGtkWindows")
+Task ("PublishGtkWindows")
 	.Does(() => {
 		Information ("Publicando UI-GTK# Windows.");
 		 var publishDir = $"{(MakeAbsolute (artifactsDirectory).FullPath)}/totp.gtk/windows-x64";
@@ -66,7 +66,30 @@ Task ("PublishConsoleGtkWindows")
 		 
 		 var settings = new DotNetCorePublishSettings
 		 {
-			 Framework = "netcoreapp3.0",
+			 Framework = "net5",
+			 Configuration = "Release",
+			 Runtime = "win-x64",
+			 SelfContained = true,
+			 OutputDirectory = publishDir
+		 };
+		 DotNetCorePublish(apiProject, settings);
+
+        Zip (publishDir, artifactsDirectory + "/" + File ($"gtk-windows.zip"));
+});
+
+Task ("PublishUiTerminalWindows")
+	.Does(() => {
+		Information ("Publicando GUI-Console Windows.");
+		 var publishDir = $"{(MakeAbsolute (artifactsDirectory).FullPath)}/totp.uiterm/windows-x64";
+		 if (!DirectoryExists (publishDir)) {
+			CreateDirectory (publishDir);
+		 }
+		 
+		 var apiProject = "./src/totp.uiterm/totp.csproj";
+		 
+		 var settings = new DotNetCorePublishSettings
+		 {
+			 Framework = "net5",
 			 Configuration = "Release",
 			 Runtime = "win-x64",
 			 SelfContained = true,
@@ -80,7 +103,8 @@ Task ("PublishConsoleGtkWindows")
 Task("Publish")
 .IsDependentOn("Test")
 .IsDependentOn("PublishConsoleCliWindows")
-.IsDependentOn("PublishConsoleGtkWindows")
+.IsDependentOn("PublishGtkWindows")
+.IsDependentOn("PublishUiTerminalWindows")
 .Does(() =>
 {
 });
