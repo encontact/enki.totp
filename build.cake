@@ -39,7 +39,7 @@ Task ("PublishConsoleCliWindows")
 			CreateDirectory (publishDir);
 		 }
 		 
-		 var apiProject = "./src/totp.cli/totpcli.csproj";
+		 var apiProject = "./src/totp.cli/totp.cli.csproj";
 		 
 		 var settings = new DotNetCorePublishSettings
 		 {
@@ -62,7 +62,7 @@ Task ("PublishGtkWindows")
 			CreateDirectory (publishDir);
 		 }
 		 
-		 var apiProject = "./src/totp.gtksharp/totp.csproj";
+		 var apiProject = "./src/totp.gtksharp/totp.gtk.csproj";
 		 
 		 var settings = new DotNetCorePublishSettings
 		 {
@@ -80,12 +80,12 @@ Task ("PublishGtkWindows")
 Task ("PublishUiTerminalWindows")
 	.Does(() => {
 		Information ("Publicando GUI-Console Windows.");
-		 var publishDir = $"{(MakeAbsolute (artifactsDirectory).FullPath)}/totp.uiterm/windows-x64";
+		 var publishDir = $"{(MakeAbsolute (artifactsDirectory).FullPath)}/totp.terminal/windows-x64";
 		 if (!DirectoryExists (publishDir)) {
 			CreateDirectory (publishDir);
 		 }
 		 
-		 var apiProject = "./src/totp.uiterm/totp.csproj";
+		 var apiProject = "./src/totp.uiterm/totp.uiterm.csproj";
 		 
 		 var settings = new DotNetCorePublishSettings
 		 {
@@ -97,7 +97,7 @@ Task ("PublishUiTerminalWindows")
 		 };
 		 DotNetCorePublish(apiProject, settings);
 
-        Zip (publishDir, artifactsDirectory + "/" + File ($"gtk-windows.zip"));
+        Zip (publishDir, artifactsDirectory + "/" + File ($"terminal-windows.zip"));
 });
 
 Task("Publish")
