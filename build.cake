@@ -100,11 +100,36 @@ Task ("PublishUiTerminalWindows")
         Zip (publishDir, artifactsDirectory + "/" + File ($"terminal-windows.zip"));
 });
 
+Task ("PublishUiTerminalLinux")
+	.Does(() => {
+		Information ("Publicando GUI-Console Linux.");
+		 var publishDir = $"{(MakeAbsolute (artifactsDirectory).FullPath)}/totp.terminal/linux-x64";
+		 if (!DirectoryExists (publishDir)) {
+			CreateDirectory (publishDir);
+		 }
+		 
+		 var apiProject = "./src/totp.uiterm/totp.uiterm.csproj";
+		 
+		 var settings = new DotNetCorePublishSettings
+		 {
+			 Framework = "net5",
+			 Configuration = "Release",
+			 Runtime = "linux-x64",
+			 SelfContained = true,
+			 OutputDirectory = publishDir
+		 };
+		 DotNetCorePublish(apiProject, settings);
+
+        Zip (publishDir, artifactsDirectory + "/" + File ($"terminal-windows.zip"));
+});
+
+
 Task("Publish")
 .IsDependentOn("Test")
 .IsDependentOn("PublishConsoleCliWindows")
 .IsDependentOn("PublishGtkWindows")
 .IsDependentOn("PublishUiTerminalWindows")
+.IsDependentOn("PublishUiTerminalLinux")
 .Does(() =>
 {
 });
