@@ -32,3 +32,7 @@ string totpCode = totp.getCodeString();
 
 1. dotnet pack --output nupkgs /p:PackageVersion=1.0.1{version}
 2. nuget.exe push -Source {NuGet package source URL} -ApiKey key {your_package}.nupkg`
+
+## Learn to Versioning
+
+* https://ml-software.ch/posts/versioning-made-easier-with-nerdbank-gitversioning
