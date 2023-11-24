@@ -1,7 +1,7 @@
 using System;
 using enki.totp;
 using Microsoft.Extensions.Configuration;
-using Mono.Terminal;
+// using Mono.Terminal;
 using Terminal.Gui;
 
 namespace totp.uiterm
@@ -60,21 +60,20 @@ namespace totp.uiterm
 
             var copyBtn = new Button(3, 20, "Copiar", true)
             {
-                CanFocus = true,
-                Clicked = () =>
-                {
-                    TextCopy.ClipboardService.SetText(tokenValue.Text.ToString());
-                }
+                CanFocus = true
+            };
+            copyBtn.Clicked += () =>
+            {
+                TextCopy.ClipboardService.SetText(tokenValue.Text.ToString());
             };
             var exitBtn = new Button(25, 20, "Sair")
             {
-                CanFocus = true,
-                Clicked = () =>
-                {
+                CanFocus = true
+            };
+            exitBtn.Clicked += () => {
                     top.Running = false;
                     Application.RequestStop();
                     Application.Shutdown();
-                }
             };
 
             var copyInfoLabel = new Label("Pressione ALT+C para o botão copiar.") { X = 3, Y = 22 };
