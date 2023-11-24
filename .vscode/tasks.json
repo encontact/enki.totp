@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/totpcli/totpcli.csproj",
+                "${workspaceFolder}/src/totp.cli/totp.cli.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/totpcli/totpcli.csproj",
+                "${workspaceFolder}/src/totp.cli/totp.cli.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/src/totpcli/totpcli.csproj",
+                "${workspaceFolder}/src/totp.cli/totp.cli.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -44,7 +44,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/totpcli/project.json"
+                "${workspaceFolder}/src/totp.cli/totp.cli.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

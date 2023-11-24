@@ -5,21 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (GTK#)",
+            "name": "Launch CLI",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/totp.gtksharp/bin/Debug/netcoreapp3.0/totp.exe",
+            "program": "${workspaceFolder}/src/totp.cli/bin/Debug/net8/totp.cli",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/totp.cli",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Launch GTK#",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/totp.gtksharp/bin/Debug/net8/totp.gtk",
             "args": [],
             "cwd": "${workspaceFolder}/src/totp.gtksharp",
             "console": "internalConsole",
             "stopAtEntry": false
         },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "processId": "${command:pickProcess}"
-        }
     ]
 }

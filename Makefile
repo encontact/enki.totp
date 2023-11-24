@@ -18,17 +18,16 @@ build:
 	dotnet build -c Release ${solution}
 
 # Mais em: https://renatogroffe.medium.com/net-nuget-atualizando-packages-via-linha-de-comando-b0c6b596ed2
-# Para instalar dependência: dotnet tool install --global dotnet-outdated-tool
+# Para instalar dependência: dotnet tool install --local dotnet-outdated-tool
 update-dependencies:
-	ifeq (, $(shell which dotnet-outdated))
-		$(error "No dotnet-outdated in PATH, consider doing `dotnet tool install --global dotnet-outdated-tool`")
-	else
-		dotnet-outdated -u:Prompt ${solution}
-	endif
+	dotnet tool restore
+	dotnet dotnet-outdated -u:Prompt ${solution}
 
 # Mais em: https://devblogs.microsoft.com/nuget/how-to-scan-nuget-packages-for-security-vulnerabilities/
 check-vulnerabilities:
+	dotnet tool restore
 	dotnet list package --vulnerable
+	dotnet security-scan ${solution} 
 
 test-all:
 	dotnet test ${solution}
