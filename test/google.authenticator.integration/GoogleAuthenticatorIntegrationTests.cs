@@ -35,11 +35,15 @@ public class GoogleAuthenticatorIntegrationTests
         var base32Secret = ResolveOrCreateSecret();
 
         var provisioningUri = BuildProvisioningUri(issuer, account, base32Secret);
-        var enkiToken = new TokenManager(base32Secret).GetToken();
+        var capturedTime = DateTimeOffset.UtcNow;
+        var unixNow = (ulong)capturedTime.ToUnixTimeSeconds();
+
+        var enkiTotp = new EnkiTotp(base32Secret, timeoutSeconds: 30, digits: 6);
+        var enkiToken = enkiTotp.getCodeString(unixNow);
 
         var otpNetSecretBytes = Base32Encoding.ToBytes(base32Secret);
         var otpNetTotp = new OtpNetTotp(otpNetSecretBytes, step: 30, mode: OtpHashMode.Sha1, totpSize: 6);
-        var otpNetCode = otpNetTotp.ComputeTotp();
+        var otpNetCode = otpNetTotp.ComputeTotp(capturedTime.UtcDateTime);
 
         using var qrGenerator = new QRCodeGenerator();
         using var qrData = qrGenerator.CreateQrCode(provisioningUri, QRCodeGenerator.ECCLevel.Q);
