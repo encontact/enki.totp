@@ -4,9 +4,9 @@ This test project validates interoperability between `enki.token` and Google Aut
 
 ## Run
 
-```bash
-cd /home/reinaldo/code/enki.totp
+From the repository root, run:
 
+```bash
 dotnet test test/google.authenticator.integration/google.authenticator.integration.csproj -l "console;verbosity=detailed"
 ```
 
